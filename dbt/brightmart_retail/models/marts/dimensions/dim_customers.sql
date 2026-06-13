@@ -1,0 +1,20 @@
+select
+    {{ dbt_utils.generate_surrogate_key(['customer_id']) }} as customer_key,
+    customer_id,
+    customer_code,
+    full_name,
+    first_name,
+    last_name,
+    gender,
+    birth_date,
+    email,
+    phone,
+    segment_name,
+    loyalty_number,
+    loyalty_tier,
+    points_balance,
+    is_active,
+    is_invalid_email,
+    created_at,
+    updated_at
+from {{ ref('int_customer_profile') }}

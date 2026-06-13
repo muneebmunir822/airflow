@@ -1,0 +1,544 @@
+version: 2
+
+sources:
+  - name: brightmart_raw
+    database: BRIGHTMART_DB
+    schema: RAW
+    description: "Raw landing schema loaded from the normalized SQLite OLTP database."
+    tables:
+      - name: addresses
+        description: "Raw source table addresses from the SQLite OLTP system."
+        columns:
+          - name: address_id
+            description: "Raw column address_id from addresses."
+            data_tests:
+              - not_null
+              - unique
+          - name: city_id
+            description: "Raw column city_id from addresses."
+          - name: address_line1
+            description: "Raw column address_line1 from addresses."
+          - name: address_line2
+            description: "Raw column address_line2 from addresses."
+          - name: postal_code
+            description: "Raw column postal_code from addresses."
+      - name: brands
+        description: "Raw source table brands from the SQLite OLTP system."
+        columns:
+          - name: brand_id
+            description: "Raw column brand_id from brands."
+            data_tests:
+              - not_null
+              - unique
+          - name: brand_name
+            description: "Raw column brand_name from brands."
+      - name: categories
+        description: "Raw source table categories from the SQLite OLTP system."
+        columns:
+          - name: category_id
+            description: "Raw column category_id from categories."
+            data_tests:
+              - not_null
+              - unique
+          - name: department_id
+            description: "Raw column department_id from categories."
+          - name: category_name
+            description: "Raw column category_name from categories."
+      - name: cities
+        description: "Raw source table cities from the SQLite OLTP system."
+        columns:
+          - name: city_id
+            description: "Raw column city_id from cities."
+            data_tests:
+              - not_null
+              - unique
+          - name: region_id
+            description: "Raw column region_id from cities."
+          - name: city_name
+            description: "Raw column city_name from cities."
+      - name: countries
+        description: "Raw source table countries from the SQLite OLTP system."
+        columns:
+          - name: country_id
+            description: "Raw column country_id from countries."
+            data_tests:
+              - not_null
+              - unique
+          - name: country_code
+            description: "Raw column country_code from countries."
+          - name: country_name
+            description: "Raw column country_name from countries."
+      - name: customer_addresses
+        description: "Raw source table customer_addresses from the SQLite OLTP system."
+        columns:
+          - name: customer_address_id
+            description: "Raw column customer_address_id from customer_addresses."
+            data_tests:
+              - not_null
+              - unique
+          - name: customer_id
+            description: "Raw column customer_id from customer_addresses."
+          - name: address_id
+            description: "Raw column address_id from customer_addresses."
+          - name: address_type
+            description: "Raw column address_type from customer_addresses."
+          - name: is_default
+            description: "Raw column is_default from customer_addresses."
+      - name: customer_segments
+        description: "Raw source table customer_segments from the SQLite OLTP system."
+        columns:
+          - name: segment_id
+            description: "Raw column segment_id from customer_segments."
+            data_tests:
+              - not_null
+              - unique
+          - name: segment_name
+            description: "Raw column segment_name from customer_segments."
+      - name: customers
+        description: "Raw source table customers from the SQLite OLTP system."
+        columns:
+          - name: customer_id
+            description: "Raw column customer_id from customers."
+            data_tests:
+              - not_null
+              - unique
+          - name: customer_code
+            description: "Raw column customer_code from customers."
+          - name: first_name
+            description: "Raw column first_name from customers."
+          - name: last_name
+            description: "Raw column last_name from customers."
+          - name: gender
+            description: "Raw column gender from customers."
+          - name: birth_date
+            description: "Raw column birth_date from customers."
+          - name: email
+            description: "Raw column email from customers."
+          - name: phone
+            description: "Raw column phone from customers."
+          - name: segment_id
+            description: "Raw column segment_id from customers."
+          - name: created_at
+            description: "Raw column created_at from customers."
+          - name: updated_at
+            description: "Raw column updated_at from customers."
+          - name: is_active
+            description: "Raw column is_active from customers."
+          - name: notes
+            description: "Raw column notes from customers."
+      - name: departments
+        description: "Raw source table departments from the SQLite OLTP system."
+        columns:
+          - name: department_id
+            description: "Raw column department_id from departments."
+            data_tests:
+              - not_null
+              - unique
+          - name: department_name
+            description: "Raw column department_name from departments."
+      - name: employees
+        description: "Raw source table employees from the SQLite OLTP system."
+        columns:
+          - name: employee_id
+            description: "Raw column employee_id from employees."
+            data_tests:
+              - not_null
+              - unique
+          - name: employee_code
+            description: "Raw column employee_code from employees."
+          - name: store_id
+            description: "Raw column store_id from employees."
+          - name: first_name
+            description: "Raw column first_name from employees."
+          - name: last_name
+            description: "Raw column last_name from employees."
+          - name: job_title
+            description: "Raw column job_title from employees."
+          - name: hire_date
+            description: "Raw column hire_date from employees."
+          - name: is_active
+            description: "Raw column is_active from employees."
+      - name: inventory_transactions
+        description: "Raw source table inventory_transactions from the SQLite OLTP system."
+        columns:
+          - name: inventory_transaction_id
+            description: "Raw column inventory_transaction_id from inventory_transactions."
+            data_tests:
+              - not_null
+              - unique
+          - name: store_id
+            description: "Raw column store_id from inventory_transactions."
+          - name: product_id
+            description: "Raw column product_id from inventory_transactions."
+          - name: transaction_date
+            description: "Raw column transaction_date from inventory_transactions."
+          - name: transaction_type
+            description: "Raw column transaction_type from inventory_transactions."
+          - name: quantity_change
+            description: "Raw column quantity_change from inventory_transactions."
+          - name: unit_cost
+            description: "Raw column unit_cost from inventory_transactions."
+          - name: reference_number
+            description: "Raw column reference_number from inventory_transactions."
+      - name: loyalty_accounts
+        description: "Raw source table loyalty_accounts from the SQLite OLTP system."
+        columns:
+          - name: loyalty_account_id
+            description: "Raw column loyalty_account_id from loyalty_accounts."
+            data_tests:
+              - not_null
+              - unique
+          - name: customer_id
+            description: "Raw column customer_id from loyalty_accounts."
+          - name: loyalty_number
+            description: "Raw column loyalty_number from loyalty_accounts."
+          - name: enrollment_date
+            description: "Raw column enrollment_date from loyalty_accounts."
+          - name: tier
+            description: "Raw column tier from loyalty_accounts."
+          - name: points_balance
+            description: "Raw column points_balance from loyalty_accounts."
+      - name: order_statuses
+        description: "Raw source table order_statuses from the SQLite OLTP system."
+        columns:
+          - name: status_id
+            description: "Raw column status_id from order_statuses."
+            data_tests:
+              - not_null
+              - unique
+          - name: status_name
+            description: "Raw column status_name from order_statuses."
+      - name: payment_methods
+        description: "Raw source table payment_methods from the SQLite OLTP system."
+        columns:
+          - name: payment_method_id
+            description: "Raw column payment_method_id from payment_methods."
+            data_tests:
+              - not_null
+              - unique
+          - name: method_name
+            description: "Raw column method_name from payment_methods."
+      - name: product_cost_history
+        description: "Raw source table product_cost_history from the SQLite OLTP system."
+        columns:
+          - name: cost_id
+            description: "Raw column cost_id from product_cost_history."
+            data_tests:
+              - not_null
+              - unique
+          - name: product_id
+            description: "Raw column product_id from product_cost_history."
+          - name: cost_amount
+            description: "Raw column cost_amount from product_cost_history."
+          - name: effective_from
+            description: "Raw column effective_from from product_cost_history."
+          - name: effective_to
+            description: "Raw column effective_to from product_cost_history."
+      - name: product_price_history
+        description: "Raw source table product_price_history from the SQLite OLTP system."
+        columns:
+          - name: price_id
+            description: "Raw column price_id from product_price_history."
+            data_tests:
+              - not_null
+              - unique
+          - name: product_id
+            description: "Raw column product_id from product_price_history."
+          - name: list_price
+            description: "Raw column list_price from product_price_history."
+          - name: effective_from
+            description: "Raw column effective_from from product_price_history."
+          - name: effective_to
+            description: "Raw column effective_to from product_price_history."
+      - name: products
+        description: "Raw source table products from the SQLite OLTP system."
+        columns:
+          - name: product_id
+            description: "Raw column product_id from products."
+            data_tests:
+              - not_null
+              - unique
+          - name: product_sku
+            description: "Raw column product_sku from products."
+          - name: product_name
+            description: "Raw column product_name from products."
+          - name: subcategory_id
+            description: "Raw column subcategory_id from products."
+          - name: brand_id
+            description: "Raw column brand_id from products."
+          - name: supplier_id
+            description: "Raw column supplier_id from products."
+          - name: size
+            description: "Raw column size from products."
+          - name: color
+            description: "Raw column color from products."
+          - name: unit_of_measure
+            description: "Raw column unit_of_measure from products."
+          - name: standard_price
+            description: "Raw column standard_price from products."
+          - name: status
+            description: "Raw column status from products."
+          - name: created_at
+            description: "Raw column created_at from products."
+          - name: updated_at
+            description: "Raw column updated_at from products."
+      - name: promotion_products
+        description: "Raw source table promotion_products from the SQLite OLTP system."
+        columns:
+          - name: promotion_product_id
+            description: "Raw column promotion_product_id from promotion_products."
+            data_tests:
+              - not_null
+              - unique
+          - name: promotion_id
+            description: "Raw column promotion_id from promotion_products."
+          - name: product_id
+            description: "Raw column product_id from promotion_products."
+      - name: promotion_types
+        description: "Raw source table promotion_types from the SQLite OLTP system."
+        columns:
+          - name: promotion_type_id
+            description: "Raw column promotion_type_id from promotion_types."
+            data_tests:
+              - not_null
+              - unique
+          - name: promotion_type_name
+            description: "Raw column promotion_type_name from promotion_types."
+      - name: promotions
+        description: "Raw source table promotions from the SQLite OLTP system."
+        columns:
+          - name: promotion_id
+            description: "Raw column promotion_id from promotions."
+            data_tests:
+              - not_null
+              - unique
+          - name: promotion_code
+            description: "Raw column promotion_code from promotions."
+          - name: promotion_name
+            description: "Raw column promotion_name from promotions."
+          - name: promotion_type_id
+            description: "Raw column promotion_type_id from promotions."
+          - name: start_date
+            description: "Raw column start_date from promotions."
+          - name: end_date
+            description: "Raw column end_date from promotions."
+          - name: discount_percent
+            description: "Raw column discount_percent from promotions."
+          - name: discount_amount
+            description: "Raw column discount_amount from promotions."
+          - name: is_active
+            description: "Raw column is_active from promotions."
+      - name: purchase_order_items
+        description: "Raw source table purchase_order_items from the SQLite OLTP system."
+        columns:
+          - name: purchase_order_item_id
+            description: "Raw column purchase_order_item_id from purchase_order_items."
+            data_tests:
+              - not_null
+              - unique
+          - name: purchase_order_id
+            description: "Raw column purchase_order_id from purchase_order_items."
+          - name: product_id
+            description: "Raw column product_id from purchase_order_items."
+          - name: quantity_ordered
+            description: "Raw column quantity_ordered from purchase_order_items."
+          - name: unit_cost
+            description: "Raw column unit_cost from purchase_order_items."
+          - name: quantity_received
+            description: "Raw column quantity_received from purchase_order_items."
+      - name: purchase_orders
+        description: "Raw source table purchase_orders from the SQLite OLTP system."
+        columns:
+          - name: purchase_order_id
+            description: "Raw column purchase_order_id from purchase_orders."
+            data_tests:
+              - not_null
+              - unique
+          - name: po_number
+            description: "Raw column po_number from purchase_orders."
+          - name: supplier_id
+            description: "Raw column supplier_id from purchase_orders."
+          - name: store_id
+            description: "Raw column store_id from purchase_orders."
+          - name: order_date
+            description: "Raw column order_date from purchase_orders."
+          - name: expected_date
+            description: "Raw column expected_date from purchase_orders."
+          - name: status
+            description: "Raw column status from purchase_orders."
+      - name: regions
+        description: "Raw source table regions from the SQLite OLTP system."
+        columns:
+          - name: region_id
+            description: "Raw column region_id from regions."
+            data_tests:
+              - not_null
+              - unique
+          - name: country_id
+            description: "Raw column country_id from regions."
+          - name: region_name
+            description: "Raw column region_name from regions."
+      - name: returns
+        description: "Raw source table returns from the SQLite OLTP system."
+        columns:
+          - name: return_id
+            description: "Raw column return_id from returns."
+            data_tests:
+              - not_null
+              - unique
+          - name: order_item_id
+            description: "Raw column order_item_id from returns."
+          - name: return_date
+            description: "Raw column return_date from returns."
+          - name: return_reason
+            description: "Raw column return_reason from returns."
+          - name: quantity_returned
+            description: "Raw column quantity_returned from returns."
+          - name: refund_amount
+            description: "Raw column refund_amount from returns."
+          - name: created_at
+            description: "Raw column created_at from returns."
+      - name: sales_order_items
+        description: "Raw source table sales_order_items from the SQLite OLTP system."
+        columns:
+          - name: order_item_id
+            description: "Raw column order_item_id from sales_order_items."
+            data_tests:
+              - not_null
+              - unique
+          - name: order_id
+            description: "Raw column order_id from sales_order_items."
+          - name: product_id
+            description: "Raw column product_id from sales_order_items."
+          - name: promotion_id
+            description: "Raw column promotion_id from sales_order_items."
+          - name: quantity
+            description: "Raw column quantity from sales_order_items."
+          - name: unit_price
+            description: "Raw column unit_price from sales_order_items."
+          - name: discount_amount
+            description: "Raw column discount_amount from sales_order_items."
+          - name: line_total
+            description: "Raw column line_total from sales_order_items."
+          - name: item_status
+            description: "Raw column item_status from sales_order_items."
+          - name: updated_at
+            description: "Raw column updated_at from sales_order_items."
+      - name: sales_orders
+        description: "Raw source table sales_orders from the SQLite OLTP system."
+        columns:
+          - name: order_id
+            description: "Raw column order_id from sales_orders."
+            data_tests:
+              - not_null
+              - unique
+          - name: order_number
+            description: "Raw column order_number from sales_orders."
+          - name: customer_id
+            description: "Raw column customer_id from sales_orders."
+          - name: store_id
+            description: "Raw column store_id from sales_orders."
+          - name: employee_id
+            description: "Raw column employee_id from sales_orders."
+          - name: order_date
+            description: "Raw column order_date from sales_orders."
+          - name: order_time
+            description: "Raw column order_time from sales_orders."
+          - name: status_id
+            description: "Raw column status_id from sales_orders."
+          - name: payment_method_id
+            description: "Raw column payment_method_id from sales_orders."
+          - name: channel
+            description: "Raw column channel from sales_orders."
+          - name: subtotal_amount
+            description: "Raw column subtotal_amount from sales_orders."
+          - name: tax_amount
+            description: "Raw column tax_amount from sales_orders."
+          - name: discount_amount
+            description: "Raw column discount_amount from sales_orders."
+          - name: total_amount
+            description: "Raw column total_amount from sales_orders."
+          - name: created_at
+            description: "Raw column created_at from sales_orders."
+          - name: updated_at
+            description: "Raw column updated_at from sales_orders."
+      - name: stock_levels
+        description: "Raw source table stock_levels from the SQLite OLTP system."
+        columns:
+          - name: stock_level_id
+            description: "Raw column stock_level_id from stock_levels."
+            data_tests:
+              - not_null
+              - unique
+          - name: store_id
+            description: "Raw column store_id from stock_levels."
+          - name: product_id
+            description: "Raw column product_id from stock_levels."
+          - name: quantity_on_hand
+            description: "Raw column quantity_on_hand from stock_levels."
+          - name: reorder_level
+            description: "Raw column reorder_level from stock_levels."
+          - name: last_stocktake_date
+            description: "Raw column last_stocktake_date from stock_levels."
+      - name: store_formats
+        description: "Raw source table store_formats from the SQLite OLTP system."
+        columns:
+          - name: format_id
+            description: "Raw column format_id from store_formats."
+            data_tests:
+              - not_null
+              - unique
+          - name: format_name
+            description: "Raw column format_name from store_formats."
+      - name: stores
+        description: "Raw source table stores from the SQLite OLTP system."
+        columns:
+          - name: store_id
+            description: "Raw column store_id from stores."
+            data_tests:
+              - not_null
+              - unique
+          - name: store_code
+            description: "Raw column store_code from stores."
+          - name: store_name
+            description: "Raw column store_name from stores."
+          - name: address_id
+            description: "Raw column address_id from stores."
+          - name: format_id
+            description: "Raw column format_id from stores."
+          - name: opened_date
+            description: "Raw column opened_date from stores."
+          - name: square_feet
+            description: "Raw column square_feet from stores."
+          - name: manager_name
+            description: "Raw column manager_name from stores."
+          - name: is_active
+            description: "Raw column is_active from stores."
+      - name: subcategories
+        description: "Raw source table subcategories from the SQLite OLTP system."
+        columns:
+          - name: subcategory_id
+            description: "Raw column subcategory_id from subcategories."
+            data_tests:
+              - not_null
+              - unique
+          - name: category_id
+            description: "Raw column category_id from subcategories."
+          - name: subcategory_name
+            description: "Raw column subcategory_name from subcategories."
+      - name: suppliers
+        description: "Raw source table suppliers from the SQLite OLTP system."
+        columns:
+          - name: supplier_id
+            description: "Raw column supplier_id from suppliers."
+            data_tests:
+              - not_null
+              - unique
+          - name: supplier_name
+            description: "Raw column supplier_name from suppliers."
+          - name: contact_email
+            description: "Raw column contact_email from suppliers."
+          - name: phone
+            description: "Raw column phone from suppliers."
+          - name: country_id
+            description: "Raw column country_id from suppliers."

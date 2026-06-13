@@ -1,0 +1,49 @@
+version: 2
+
+models:
+  - name: stg_customers
+    description: "Cleaned customer records. This model standardizes names, email, dates, booleans, and flags invalid emails."
+    columns:
+      - name: customer_id
+        data_tests: [not_null, unique]
+      - name: customer_code
+        data_tests: [not_null, unique]
+      - name: gender
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['M','F','O']
+              config:
+                severity: warn
+      - name: is_invalid_email
+        description: "Diagnostic flag for source email quality issues."
+
+  - name: stg_sales_orders
+    description: "Cleaned sales order headers with standardized channel and header total mismatch flag."
+    columns:
+      - name: order_id
+        data_tests: [not_null, unique]
+      - name: order_date
+        data_tests: [not_null]
+      - name: channel
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Online','Mobile App','Store','Call Center']
+
+  - name: stg_sales_order_items
+    description: "Cleaned sales order line items with quality flags for invalid quantity, negative discounts, and line total mismatch."
+    columns:
+      - name: order_item_id
+        data_tests: [not_null, unique]
+      - name: order_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_sales_orders')
+                field: order_id
+      - name: item_status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['Sold','Returned','Cancelled']

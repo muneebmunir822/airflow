@@ -1,0 +1,110 @@
+version: 2
+
+models:
+  - name: dim_customers
+    description: "Customer dimension with one row per customer natural key."
+    columns:
+      - name: customer_key
+        data_tests: [not_null, unique]
+      - name: customer_id
+        data_tests: [not_null, unique]
+      - name: segment_name
+        data_tests: [not_null]
+
+  - name: dim_products
+    description: "Product dimension denormalizing product, brand, supplier, department, category, and subcategory."
+    columns:
+      - name: product_key
+        data_tests: [not_null, unique]
+      - name: product_id
+        data_tests: [not_null, unique]
+      - name: product_sku
+        data_tests: [not_null, unique]
+      - name: standard_price
+        data_tests:
+          - positive_or_zero
+
+  - name: dim_stores
+    description: "Store dimension with geographic attributes."
+    columns:
+      - name: store_key
+        data_tests: [not_null, unique]
+      - name: store_id
+        data_tests: [not_null, unique]
+      - name: region_name
+        data_tests: [not_null]
+
+  - name: dim_date
+    description: "Conformed date dimension used by order, return, inventory, and procurement facts."
+    columns:
+      - name: date_key
+        data_tests: [not_null, unique]
+      - name: date_day
+        data_tests: [not_null, unique]
+
+  - name: dim_promotions
+    description: "Promotion dimension. Promotion_id may be null in the fact for sales without promotion."
+    columns:
+      - name: promotion_key
+        data_tests: [not_null, unique]
+
+  - name: fct_sales
+    description: "Retail sales fact. Grain: one row per sales order item."
+    columns:
+      - name: sales_transaction_key
+        data_tests: [not_null, unique]
+      - name: order_item_id
+        data_tests: [not_null, unique]
+      - name: customer_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_customers')
+                field: customer_key
+      - name: product_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_products')
+                field: product_key
+      - name: store_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_stores')
+                field: store_key
+      - name: order_date_key
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+      - name: net_sales_amount
+        data_tests:
+          - positive_or_zero:
+              config:
+                severity: warn
+
+  - name: fct_returns
+    description: "Returns fact. Grain: one row per return transaction."
+    columns:
+      - name: return_key
+        data_tests: [not_null, unique]
+
+  - name: fct_inventory_transactions
+    description: "Inventory movement fact. Grain: one row per inventory transaction."
+    columns:
+      - name: inventory_transaction_key
+        data_tests: [not_null, unique]
+
+  - name: fct_stock_snapshot
+    description: "Periodic snapshot inventory fact. Grain: one row per store/product stock level record."
+    columns:
+      - name: stock_snapshot_key
+        data_tests: [not_null, unique]
+
+  - name: fct_purchase_order_lines
+    description: "Procurement fact. Grain: one row per purchase order item."
+    columns:
+      - name: purchase_order_line_key
+        data_tests: [not_null, unique]

@@ -1,0 +1,7 @@
+rule_id,rule_name,severity,owner,description
+DQ001,Invalid customer email,medium,Data Quality Lead,Email is null blank or not in valid pattern
+DQ002,Negative or zero sales quantity,high,Sales Analytics Lead,Sales quantity should be greater than zero for sold items
+DQ003,Negative discount amount,medium,Sales Analytics Lead,Discount should not be negative
+DQ004,Line total mismatch,high,Finance Analyst,Line total should equal quantity times unit price minus discount
+DQ005,Order header total mismatch,high,Finance Analyst,Order total should equal subtotal plus tax minus discount
+DQ006,Return quantity exceeds sold quantity,critical,Operations Analyst,Returned quantity should not exceed sold quantity

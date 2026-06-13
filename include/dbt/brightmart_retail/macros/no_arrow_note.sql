@@ -1,0 +1,1 @@
+-- Macros in this folder demonstrate how Jinja turns repeated SQL patterns into reusable code.
