@@ -11,8 +11,7 @@ models:
       - name: gender
         data_tests:
           - accepted_values:
-              arguments:
-                values: ['M','F','O']
+              values: ['M','F','O']
               config:
                 severity: warn
       - name: is_invalid_email
@@ -28,8 +27,7 @@ models:
       - name: channel
         data_tests:
           - accepted_values:
-              arguments:
-                values: ['Online','Mobile App','Store','Call Center']
+              values: ['Online','Mobile App','Store','Call Center']
 
   - name: stg_sales_order_items
     description: "Cleaned sales order line items with quality flags for invalid quantity, negative discounts, and line total mismatch."
@@ -39,11 +37,9 @@ models:
       - name: order_id
         data_tests:
           - relationships:
-              arguments:
-                to: ref('stg_sales_orders')
-                field: order_id
+              to: ref('stg_sales_orders')
+              field: order_id
       - name: item_status
         data_tests:
           - accepted_values:
-              arguments:
-                values: ['Sold','Returned','Cancelled']
+              values: ['Sold','Returned','Cancelled']
