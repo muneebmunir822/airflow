@@ -1,0 +1,33 @@
+﻿# Environment / secrets
+.env
+*.env
+.env.*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+*.egg-info/
+dist/
+build/
+
+# dbt
+target/
+dbt_packages/
+logs/
+*.log
+
+# Airflow
+airflow.cfg
+airflow.db
+standalone_admin_password.txt
+webserver_config.py
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Astro
+.astro/config.yaml
