@@ -1,4 +1,4 @@
-brightmart_retail:
+brightmart_retail_dw:
   target: "{{ env_var('DBT_TARGET', 'dev') }}"
   outputs:
     dev:
