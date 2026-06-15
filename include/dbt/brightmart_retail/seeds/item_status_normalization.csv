@@ -1,5 +1,4 @@
 raw_item_status,item_status_standard,is_sales_eligible
 Sold,Sold,true
-sold,Sold,true
 Returned,Returned,false
 Cancelled,Cancelled,false
