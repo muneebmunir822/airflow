@@ -102,8 +102,9 @@ def brightmart_full_dbt_orchestration():
     with TaskGroup("mart_layer") as mart_layer:
         run_dimensions = dbt_task("run_dimension_models", "run --select path:models/marts/dimensions")
         run_facts = dbt_task("run_fact_models", "run --select path:models/marts/facts")
+        run_dq_models = dbt_task("run_dq_models", "run --select path:models/marts/dq")
         test_marts = dbt_task("test_mart_models", "test --select path:models/marts", retries=0)
-        run_dimensions >> run_facts >> test_marts
+        run_dimensions >> run_facts >> run_dq_models >> test_marts
 
     with TaskGroup("diagnostic_anomaly_tests") as diagnostic_anomaly_tests:
         # These tests may fail intentionally when source anomalies are still present.
