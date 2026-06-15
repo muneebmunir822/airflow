@@ -58,27 +58,23 @@ models:
       - name: customer_key
         data_tests:
           - relationships:
-              arguments:
-                to: ref('dim_customers')
-                field: customer_key
+              to: ref('dim_customers')
+              field: customer_key
       - name: product_key
         data_tests:
           - relationships:
-              arguments:
-                to: ref('dim_products')
-                field: product_key
+              to: ref('dim_products')
+              field: product_key
       - name: store_key
         data_tests:
           - relationships:
-              arguments:
-                to: ref('dim_stores')
-                field: store_key
+              to: ref('dim_stores')
+              field: store_key
       - name: order_date_key
         data_tests:
           - relationships:
-              arguments:
-                to: ref('dim_date')
-                field: date_key
+              to: ref('dim_date')
+              field: date_key
       - name: net_sales_amount
         data_tests:
           - positive_or_zero:
