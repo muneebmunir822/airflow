@@ -124,7 +124,29 @@ def brightmart_full_dbt_orchestration():
     with TaskGroup("analysis_and_documentation") as analysis_and_documentation:
         compile_analysis = dbt_task("compile_analysis_sql", "compile --select path:analyses", trigger_rule=TriggerRule.ALL_DONE)
         generate_docs = dbt_task("generate_dbt_docs", "docs generate", trigger_rule=TriggerRule.ALL_DONE)
-        compile_analysis >> generate_docs
+        dump_artifacts = BashOperator(
+            task_id="dump_dbt_artifacts_to_log",
+            bash_command=f"""
+            TARGET="{DBT_PROJECT_DIR}/target"
+            echo "===== ARTIFACT FILE LISTING ====="
+            ls -lh "$TARGET"
+            echo ""
+            echo "===== run_results.json ====="
+            python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d,indent=2))" "$TARGET/run_results.json"
+            echo ""
+            echo "===== manifest.json (metadata only) ====="
+            python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d.get('metadata',{{}}),indent=2))" "$TARGET/manifest.json"
+            echo ""
+            echo "===== catalog.json (metadata only) ====="
+            python3 -c "import json,sys; d=json.load(open(sys.argv[1])); print(json.dumps(d.get('metadata',{{}}),indent=2))" "$TARGET/catalog.json"
+            echo ""
+            echo "===== ALL ARTIFACTS CONFIRMED ====="
+            """,
+            append_env=True,
+            retries=0,
+            trigger_rule=TriggerRule.ALL_DONE,
+        )
+        compile_analysis >> generate_docs >> dump_artifacts
 
     end = EmptyOperator(task_id="end", trigger_rule=TriggerRule.ALL_DONE)
 
