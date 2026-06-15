@@ -7,10 +7,14 @@ with all_dates as (
 bounds as (
     select min(date_day) as min_date, max(date_day) as max_date from all_dates where date_day is not null
 ),
-spine as (
+spine_raw as (
     select dateadd(day, seq4(), min_date) as date_day
     from bounds, table(generator(rowcount => 5000))
-    qualify date_day <= (select max_date from bounds)
+),
+spine as (
+    select s.date_day
+    from spine_raw s
+    join bounds b on s.date_day <= b.max_date
 )
 select
     to_number(to_char(date_day, 'YYYYMMDD')) as date_key,
